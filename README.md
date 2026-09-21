@@ -1,6 +1,6 @@
 Project:- Weather Information Dasboard
 
-Project Objective:- To Create a responsive weather dashborad that allows users to search for a city and view real time weatherinformation using a public weather API.
+  Project Objective:- To Create a responsive weather dashborad that allows users to search for a city and view real time weatherinformation using a public weather API.
 
 Day 1:- Task
 (1) Project structure:-
@@ -13,6 +13,7 @@ Day 1:- Task
    - README.MD
 
 steps:-
+
 . Create the main project folder.
 
 . Create the required files (index.html, style.css, script.js).
