@@ -1,4 +1,4 @@
-const API_KEY = "0f510448d2c98329251db13be82038c4";
+const API_KEY = "e5aaf4c1847d9b1ce7993f9712339f91";
 
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
@@ -51,10 +51,10 @@ async function getWeather(city) {
 
         const response = await fetch(url);
 
-        if (!response.ok) {
-            throw new Error("City not found");
-        }
-
+       if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+}
         const data = await response.json();
 
         // Display city name
@@ -77,22 +77,31 @@ async function getWeather(city) {
             (data.wind.speed * 3.6).toFixed(1);
 
         // Display weather icon
-        weatherIcon.src =
-            `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        // Display weather icon
+const weather = data.weather[0].main.toLowerCase();
 
-        weatherIcon.alt =
-            data.weather[0].description;
+if (weather.includes("clear")) {
+    weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/869/869869.png";
+} else if (weather.includes("cloud")) {
+    weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
+} else if (weather.includes("rain")) {
+    weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1163/1163657.png";
+} else if (weather.includes("thunder")) {
+    weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
+} else {
+    weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1163/1163661.png";
+}
 
+weatherIcon.alt = data.weather[0].description;
         // Show weather card
         weatherCard.style.display = "block";
 
     } catch (err) {
-
-        weatherCard.style.display = "none";
-        error.textContent =
-            "City not found. Please try again.";
-
-    } finally {
+    weatherCard.style.display = "none";
+    error.textContent = err.message;
+    console.log(err);
+    
+}finally {
 
         loading.textContent = "";
 

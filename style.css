@@ -54,7 +54,11 @@ h1 {
 }
 
 .weather-card img {
-    width: 100px;
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin: 10px auto;
+    object-fit: contain;
 }
 
 #temperature {
