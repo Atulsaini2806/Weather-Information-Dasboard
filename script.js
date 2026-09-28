@@ -22,7 +22,7 @@ searchBtn.addEventListener("click", () => {
 
     if (city === "") {
         error.textContent = "Please enter a city name";
-        weatherCard.style.display = "none";
+        weatherCard.style.display = "block";
         return;
     }
 
@@ -41,7 +41,7 @@ cityInput.addEventListener("keypress", (event) => {
 // Get weather data
 async function getWeather(city) {
 
-    loading.textContent = "Loading...";
+    loading.textContent = "Fetching weather information......";
     error.textContent = "";
   
     try {
@@ -76,7 +76,6 @@ async function getWeather(city) {
         windSpeed.textContent =
             (data.wind.speed * 3.6).toFixed(1);
 
-        // Display weather icon
         // Display weather icon
 const weather = data.weather[0].main.toLowerCase();
 
