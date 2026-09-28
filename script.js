@@ -22,13 +22,19 @@ searchBtn.addEventListener("click", () => {
 
     if (city === "") {
         error.textContent = "Please enter a city name";
-        weatherCard.style.display = "block";
+        weatherCard.style.display = "none";
+        return;
+    }
+
+    // Prevent city input containing a comma
+    if (city.includes(",")) {
+        error.textContent = "Please enter only the city name.";
+        weatherCard.style.display = "none";
         return;
     }
 
     getWeather(city);
 });
-
 
 // Press Enter to search
 cityInput.addEventListener("keypress", (event) => {
@@ -41,7 +47,7 @@ cityInput.addEventListener("keypress", (event) => {
 // Get weather data
 async function getWeather(city) {
 
-    loading.textContent = "Fetching weather information......";
+     loading.textContent = "Fetching weather information......";
     error.textContent = "";
   
     try {
@@ -65,19 +71,16 @@ async function getWeather(city) {
             `${Math.round(data.main.temp)}°C`;
 
         // Display weather condition
-        condition.textContent =
-            data.weather[0].description;
+        condition.textContent = data.weather[0].description;
 
         // Display humidity
-        humidity.textContent =
-            data.main.humidity;
+        humidity.textContent = data.main.humidity;
 
         // Convert wind speed from m/s to km/h
-        windSpeed.textContent =
-            (data.wind.speed * 3.6).toFixed(1);
+        windSpeed.textContent = (data.wind.speed * 3.6).toFixed(1);
 
         // Display weather icon
-const weather = data.weather[0].main.toLowerCase();
+        const weather = data.weather[0].main.toLowerCase();
 
 if (weather.includes("clear")) {
     weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/869/869869.png";
@@ -97,10 +100,17 @@ weatherIcon.alt = data.weather[0].description;
 
     } catch (err) {
     weatherCard.style.display = "none";
-    error.textContent = err.message;
+
+    if (err.message === "city not found") {
+        error.textContent =
+            "City not found. Please check the city name and try again.";
+    } else {
+        error.textContent =
+            "Unable to fetch weather information. Please try again.";
+    }
+
     console.log(err);
-    
-}finally {
+   }finally {
 
         loading.textContent = "";
 
