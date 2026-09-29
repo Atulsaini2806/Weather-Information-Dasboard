@@ -59,7 +59,6 @@ searchBtn.addEventListener("click", () => {
 
     if (city === "") {
         error.textContent = "Please enter a city name";
-        //`weatherCard.style.display = "none";
         forecastContainer.style.display = "none";
         return;
     }
@@ -67,7 +66,6 @@ searchBtn.addEventListener("click", () => {
     // Prevent city input containing a comma
     if (city.includes(",")) {
         error.textContent = "Please enter only the city name.";
-        //weatherCard.style.display = "none";
         forecastContainer.style.display = "none";
         return;
     }
