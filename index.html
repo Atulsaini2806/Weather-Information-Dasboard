@@ -9,6 +9,9 @@
 
 <body>
 
+     <!-- Dark Mode Button -->
+        <button id="darkModeBtn">🌙 Dark Mode</button>
+
     <div class="container">
 
         <h1>Weather Information Dashboard</h1>
@@ -36,12 +39,19 @@
             <p id="condition">Condition</p>
 
             <div class="details">
-           <p>💧 Humidity: <span id="humidity">--</span>%</p>
-           <p>💨 Wind Speed: <span id="windSpeed">--</span> km/h</p>
-</div>
+                <p>💧 Humidity: <span id="humidity">--</span>%</p>
+                <p>💨 Wind Speed: <span id="windSpeed">--</span> km/h</p>
+            </div>
+
         </div>
     </div>
+
+    <div id="forecastContainer">
+        <h2>5-Day Forecast</h2>
+        <div id="forecastCards"></div>
+    </div>
+
     <script src="script.js"></script>
+
 </body>
 </html>
-      
