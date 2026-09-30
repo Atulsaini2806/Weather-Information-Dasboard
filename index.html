@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,75 +11,152 @@
 <body>
 
     <!-- Dark Mode Button -->
-    <button id="darkModeBtn">🌙 Dark Mode</button>
+    <button id="darkModeBtn">
+        🌙 Dark Mode
+    </button>
 
     <div class="container">
 
-        <h1>Weather Information Dashboard</h1>
+        <!-- Main Heading -->
+        <h1>
+            Weather Information Dashboard
+        </h1>
 
+        <!-- Search Box -->
         <div class="search-box">
-            <input 
-                type="text" 
-                id="cityInput" 
+            <input
+                type="text"
+                id="cityInput"
                 placeholder="Enter city name"
             >
-            <button id="searchBtn">Search</button>
+
+            <button id="searchBtn">
+                Search
+            </button>
         </div>
 
         <!-- Current Location -->
         <div class="location-section">
-            <button id="locationBtn">📍 Use Current Location</button>
+            <button id="locationBtn">
+                📍 Use Current Location
+            </button>
+
             <p id="locationStatus"></p>
         </div>
 
         <!-- Recent Searches -->
-<div class="recent-section">
+        <div class="recent-section">
 
-    <div class="recent-header" id="recentHeader">
-        <h2>🕘 Recent Searches</h2>
-        <span id="recentArrow">▼</span>
-    </div>
+            <div class="recent-header" id="recentHeader">
+                <h2>
+                    🕘 Recent Searches
+                </h2>
 
-    <div id="recentSearches" class="recent-hidden"></div>
+                <span id="recentArrow"> ▼ </span>
+            </div>
 
-    <button id="clearRecentBtn">Clear All</button>
+            <div
+                id="recentSearches"
+                class="recent-hidden">
+            </div>
 
-</div>
+            <button id="clearRecentBtn">
+                Clear All
+            </button>
 
+        </div>
+
+        <!-- Loading Message -->
         <div id="loading"></div>
+
+        <!-- Error Message -->
         <p id="error"></p>
 
-        <div id="weatherCard" class="weather-card">
+        <!-- Weather Card -->
+        <div
+            id="weatherCard"
+            class="weather-card">
 
-            <h2 id="cityName">City</h2>
+            <!-- Initial Weather Message -->
+            <div id="initialWeatherMessage">
 
-            <img id="weatherIcon" src="" alt="Weather Icon">
+                <h2>
+                    Weather Information
+                </h2>
 
-            <h3 id="temperature">--°C</h3>
+                <div class="initial-weather-icon">
+                    🌤️
+                </div>
 
-            <p id="condition">Condition</p>
+                <p> Search for a city </p>
 
-            <div class="details">
-                <p>
-                    💧 Humidity:
-                    <span id="humidity">--</span>%
+                <p> to see current weather </p>
+
+            </div>
+
+            <!-- Weather Information -->
+            <div id="weatherContent">
+
+                <h2 id="cityName">
+                    City
+                </h2>
+
+                <!-- Weather Icon -->
+                <img
+                    id="weatherIcon"
+                    src=""
+                    alt="Weather Icon">
+
+                <!-- Temperature -->
+                <h3 id="temperature">
+                    --°C
+                </h3>
+
+                <!-- Weather Condition -->
+                <p id="condition">
+                    Condition
                 </p>
 
-                <p>
-                    💨 Wind Speed:
-                    <span id="windSpeed">--</span> km/h
-                </p>
+                <!-- Weather Details -->
+                <div class="details">
+
+                    <p>
+                        💧 Humidity:
+                        <span id="humidity">
+                            --
+                        </span>%
+                    </p>
+
+                    <p>
+                        💨 Wind Speed:
+                        <span id="windSpeed">
+                            --
+                        </span>
+                        km/h
+                    </p>
+
+                </div>
+
             </div>
 
         </div>
+
     </div>
 
+    <!-- 5-Day Forecast -->
     <div id="forecastContainer">
-        <h2>5-Day Forecast</h2>
+
+        <h2>
+            5-Day Forecast
+        </h2>
+
         <div id="forecastCards"></div>
+
     </div>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>
+
 </html>
