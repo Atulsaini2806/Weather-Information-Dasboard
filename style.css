@@ -9,7 +9,6 @@ body {
     background: #b2c7df;
     min-height: 100vh;
 
-    /* Initial screen */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +80,7 @@ h1 {
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .search-box input {
@@ -92,9 +91,10 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 8px;
 
-    transition: background 0.3s ease,
-                color 0.3s ease,
-                border 0.3s ease;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border 0.3s ease;
 }
 
 .search-box button {
@@ -115,13 +115,204 @@ h1 {
 
 
 /* =========================
+   CURRENT LOCATION
+   ========================= */
+
+.location-section {
+    margin-bottom: 20px;
+}
+
+#locationBtn {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #69727a;
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease;
+}
+
+#locationBtn:hover {
+    background: #555d64;
+}
+
+#locationStatus {
+    margin-top: 8px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   RECENT SEARCHES
+   ========================= */
+
+.recent-section {
+    margin-bottom: 20px;
+
+    text-align: left;
+}
+
+
+/* Recent Search Header */
+
+.recent-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.recent-header h2 {
+    font-size: 18px;
+}
+
+
+/* Arrow */
+
+#recentArrow {
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* Recent searches container */
+
+#recentSearches {
+    margin-top: 10px;
+}
+
+
+/* Hidden by default */
+
+.recent-hidden {
+    display: none;
+}
+
+
+/* Visible after clicking */
+
+.recent-visible {
+    display: block;
+}
+
+
+/* Clear All button */
+
+#clearRecentBtn {
+    border: none;
+
+    background: transparent;
+
+    color: #d32f2f;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+#clearRecentBtn:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   INDIVIDUAL RECENT SEARCH
+   ========================= */
+
+.recent-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    padding: 10px 12px;
+
+    margin-bottom: 7px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease;
+}
+
+.recent-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+
+/* City name */
+
+.recent-city {
+    flex: 1;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* Remove button */
+
+.remove-recent {
+    border: none;
+
+    background: transparent;
+
+    color: #d32f2f;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    padding: 2px 5px;
+}
+
+.remove-recent:hover {
+    transform: scale(1.1);
+}
+
+
+/* No recent searches */
+
+.no-recent {
+    font-size: 13px;
+
+    color: #777;
+
+    padding: 5px 0;
+}
+
+
+/* =========================
    CURRENT WEATHER CARD
    ========================= */
 
 .weather-card {
     width: 100%;
 
-    min-height: 390px;
+    min-height: 350px;
 
     background: rgb(127, 180, 168);
 
@@ -131,10 +322,11 @@ h1 {
 
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 
-    /* Hidden before search */
     display: block;
 
-    transition: background 0.3s ease,color 0.3s ease;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
 .weather-card img {
@@ -198,7 +390,9 @@ body.searched {
 }
 
 
-/* Left side after search */
+/* =========================
+   LEFT SIDE
+   ========================= */
 
 body.searched .container {
     width: 100%;
@@ -253,7 +447,7 @@ body.searched .container {
     padding: 20px;
 
     width: 150px;
-    height: 185px;
+    height: 190px;
 
     border-radius: 12px;
 
@@ -261,8 +455,9 @@ body.searched .container {
 
     text-align: center;
 
-    transition: background 0.3s ease,
-                color 0.3s ease;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
 .forecast-card h3 {
@@ -296,7 +491,9 @@ body.dark-mode {
 }
 
 
-/* Search input */
+/* =========================
+   DARK MODE - SEARCH INPUT
+   ========================= */
 
 body.dark-mode .search-box input {
     background: #2b2b2b;
@@ -311,7 +508,9 @@ body.dark-mode .search-box input::placeholder {
 }
 
 
-/* Search button */
+/* =========================
+   DARK MODE - SEARCH BUTTON
+   ========================= */
 
 body.dark-mode .search-box button {
     background: #444;
@@ -322,7 +521,49 @@ body.dark-mode .search-box button:hover {
 }
 
 
-/* Current weather card */
+/* =========================
+   DARK MODE - LOCATION
+   ========================= */
+
+body.dark-mode #locationBtn {
+    background: #444;
+}
+
+body.dark-mode #locationBtn:hover {
+    background: #555;
+}
+
+
+/* =========================
+   DARK MODE - RECENT SEARCHES
+   ========================= */
+
+body.dark-mode .recent-item {
+    background: #2b2b2b;
+
+    color: white;
+}
+
+body.dark-mode .recent-item:hover {
+    background: #383838;
+}
+
+body.dark-mode #clearRecentBtn {
+    color: #ff7070;
+}
+
+body.dark-mode .remove-recent {
+    color: #ff7070;
+}
+
+body.dark-mode .no-recent {
+    color: #aaa;
+}
+
+
+/* =========================
+   DARK MODE - WEATHER CARD
+   ========================= */
 
 body.dark-mode .weather-card {
     background: #1e3a35;
@@ -331,7 +572,9 @@ body.dark-mode .weather-card {
 }
 
 
-/* Forecast cards */
+/* =========================
+   DARK MODE - FORECAST
+   ========================= */
 
 body.dark-mode .forecast-card {
     background: #1e3a35;
@@ -340,7 +583,9 @@ body.dark-mode .forecast-card {
 }
 
 
-/* Dark mode button */
+/* =========================
+   DARK MODE BUTTON
+   ========================= */
 
 body.dark-mode #darkModeBtn {
     background: #f1f1f1;
@@ -455,6 +700,28 @@ body.dark-mode #darkModeBtn:hover {
 
     .search-box button {
         width: 100%;
+    }
+
+
+    /* =========================
+       CURRENT LOCATION
+       ========================= */
+
+    #locationBtn {
+        width: 100%;
+    }
+
+
+    /* =========================
+       RECENT SEARCHES
+       ========================= */
+
+    .recent-header h2 {
+        font-size: 17px;
+    }
+
+    #recentArrow {
+        font-size: 13px;
     }
 
 

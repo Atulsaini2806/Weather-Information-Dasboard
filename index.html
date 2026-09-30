@@ -9,8 +9,8 @@
 
 <body>
 
-     <!-- Dark Mode Button -->
-        <button id="darkModeBtn">🌙 Dark Mode</button>
+    <!-- Dark Mode Button -->
+    <button id="darkModeBtn">🌙 Dark Mode</button>
 
     <div class="container">
 
@@ -24,6 +24,26 @@
             >
             <button id="searchBtn">Search</button>
         </div>
+
+        <!-- Current Location -->
+        <div class="location-section">
+            <button id="locationBtn">📍 Use Current Location</button>
+            <p id="locationStatus"></p>
+        </div>
+
+        <!-- Recent Searches -->
+<div class="recent-section">
+
+    <div class="recent-header" id="recentHeader">
+        <h2>🕘 Recent Searches</h2>
+        <span id="recentArrow">▼</span>
+    </div>
+
+    <div id="recentSearches" class="recent-hidden"></div>
+
+    <button id="clearRecentBtn">Clear All</button>
+
+</div>
 
         <div id="loading"></div>
         <p id="error"></p>
@@ -39,8 +59,15 @@
             <p id="condition">Condition</p>
 
             <div class="details">
-                <p>💧 Humidity: <span id="humidity">--</span>%</p>
-                <p>💨 Wind Speed: <span id="windSpeed">--</span> km/h</p>
+                <p>
+                    💧 Humidity:
+                    <span id="humidity">--</span>%
+                </p>
+
+                <p>
+                    💨 Wind Speed:
+                    <span id="windSpeed">--</span> km/h
+                </p>
             </div>
 
         </div>
