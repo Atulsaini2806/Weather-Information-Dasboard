@@ -13,9 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 30px;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Initial Container */
@@ -38,9 +36,7 @@ body {
     font-size: 14px;
     cursor: pointer;
     z-index: 1000;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 #darkModeBtn:hover {
@@ -61,13 +57,11 @@ h1 {
 
 .search-box input {
     flex: 1;
+    min-width: 0;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease,
-        border 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
 .search-box button {
@@ -97,8 +91,7 @@ h1 {
     color: white;
     font-size: 15px;
     cursor: pointer;
-    transition:
-        background 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 #locationBtn:hover {
@@ -131,8 +124,7 @@ h1 {
 
 #recentArrow {
     font-size: 14px;
-    transition:
-        transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 #recentSearches {
@@ -171,8 +163,7 @@ h1 {
     margin-bottom: 7px;
     border-radius: 8px;
     cursor: pointer;
-    transition:
-        background 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .recent-item:hover {
@@ -181,11 +172,16 @@ h1 {
 
 .recent-city {
     flex: 1;
+    min-width: 0;
     font-size: 14px;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .remove-recent {
+    flex-shrink: 0;
     border: none;
     background: transparent;
     color: #d32f2f;
@@ -211,12 +207,9 @@ h1 {
     background: rgb(127, 180, 168);
     padding: 25px;
     border-radius: 15px;
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     display: block;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Initial Weather Message */
@@ -236,7 +229,7 @@ h1 {
 
 .initial-weather-icon {
     font-size: 60px;
-    margin: 10px 0 15px 0;
+    margin: 10px 0 15px;
 }
 
 #initialWeatherMessage p {
@@ -306,30 +299,25 @@ body.searched .container {
 
 #forecastContainer h2 {
     margin-bottom: 20px;
-    margin-left: 0;
 }
 
 /* Forecast Cards */
 #forecastCards {
     display: grid;
-    grid-template-columns:
-        repeat(3, 150px);
+    grid-template-columns: repeat(3, 150px);
     justify-content: start;
     gap: 15px;
 }
 
 .forecast-card {
-    background: rgb(127, 180, 168);
-    padding: 20px;
     width: 150px;
     height: 190px;
+    padding: 20px;
+    background: rgb(127, 180, 168);
     border-radius: 12px;
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .forecast-card h3 {
@@ -356,7 +344,6 @@ body.dark-mode {
     color: white;
 }
 
-/* Dark Mode - Search Input */
 body.dark-mode .search-box input {
     background: #2b2b2b;
     color: white;
@@ -367,25 +354,16 @@ body.dark-mode .search-box input::placeholder {
     color: #aaa;
 }
 
-/* Dark Mode - Search Button */
-body.dark-mode .search-box button {
-    background: #444;
-}
-
-body.dark-mode .search-box button:hover {
-    background: #555;
-}
-
-/* Dark Mode - Location */
+body.dark-mode .search-box button,
 body.dark-mode #locationBtn {
     background: #444;
 }
 
+body.dark-mode .search-box button:hover,
 body.dark-mode #locationBtn:hover {
     background: #555;
 }
 
-/* Dark Mode - Recent Searches */
 body.dark-mode .recent-item {
     background: #2b2b2b;
     color: white;
@@ -395,10 +373,7 @@ body.dark-mode .recent-item:hover {
     background: #383838;
 }
 
-body.dark-mode #clearRecentBtn {
-    color: #ff7070;
-}
-
+body.dark-mode #clearRecentBtn,
 body.dark-mode .remove-recent {
     color: #ff7070;
 }
@@ -407,19 +382,12 @@ body.dark-mode .no-recent {
     color: #aaa;
 }
 
-/* Dark Mode - Weather Card */
-body.dark-mode .weather-card {
-    background: #1e3a35;
-    color: white;
-}
-
-/* Dark Mode - Forecast */
+body.dark-mode .weather-card,
 body.dark-mode .forecast-card {
     background: #1e3a35;
     color: white;
 }
 
-/* Dark Mode Button */
 body.dark-mode #darkModeBtn {
     background: #f1f1f1;
     color: #222;
@@ -431,33 +399,33 @@ body.dark-mode #darkModeBtn:hover {
 
 /* Tablet */
 @media (max-width: 900px) {
-
     body {
         padding: 30px;
     }
 
     body.searched {
-        display: grid;
         grid-template-columns: 1fr 1fr;
         padding: 30px;
         column-gap: 20px;
     }
 
+    #forecastContainer {
+        padding-left: 20px;
+    }
+
     #forecastCards {
-        grid-template-columns:
-            repeat(3, 100px);
+        grid-template-columns: repeat(2, 120px);
         gap: 10px;
     }
 
     .forecast-card {
-        width: 100px;
+        width: 120px;
         padding: 12px;
     }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-
     body {
         display: flex;
         justify-content: center;
@@ -466,10 +434,9 @@ body.dark-mode #darkModeBtn:hover {
         padding: 20px 15px;
     }
 
-    /* After Search */
     body.searched {
         display: block;
-        padding: 70px 15px 30px 15px;
+        padding: 70px 15px 30px;
     }
 
     body.searched .container {
@@ -492,19 +459,19 @@ body.dark-mode #darkModeBtn:hover {
     /* Search */
     .search-box {
         flex-direction: column;
+        gap: 8px;
     }
 
-    .search-box input {
-        width: 100%;
-    }
-
+    .search-box input,
     .search-box button {
         width: 100%;
+        min-height: 44px;
     }
 
     /* Current Location */
     #locationBtn {
         width: 100%;
+        min-height: 44px;
     }
 
     /* Recent Searches */
@@ -520,7 +487,7 @@ body.dark-mode #darkModeBtn:hover {
     .weather-card {
         width: 100%;
         min-height: auto;
-        padding: 20px;
+        padding: 20px 15px;
     }
 
     #initialWeatherMessage {
@@ -542,13 +509,71 @@ body.dark-mode #darkModeBtn:hover {
         padding-left: 0;
     }
 
+    #forecastContainer h2 {
+        font-size: 21px;
+    }
+
     #forecastCards {
-        grid-template-columns:
-            repeat(2, 120px);
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
     }
 
     .forecast-card {
-        width: 120px;
+        width: 100%;
+        height: 180px;
+        padding: 12px 8px;
+    }
+
+    .forecast-card h3 {
+        font-size: 16px;
+    }
+
+    .forecast-card p {
+        font-size: 13px;
+    }
+
+    .forecast-card p:first-of-type {
+        font-size: 20px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+    body {
+        padding: 15px 10px;
+    }
+
+    body.searched {
+        padding: 65px 10px 25px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #darkModeBtn {
+        top: 12px;
+        right: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .weather-card {
+        padding: 18px 12px;
+    }
+
+    #temperature {
+        font-size: 28px;
+        margin: 25px 0;
+    }
+
+    #forecastCards {
+        gap: 8px;
+    }
+
+    .forecast-card {
+        height: 170px;
+        padding: 10px 5px;
     }
 }
