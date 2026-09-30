@@ -42,13 +42,14 @@ const recentHeader =
 const recentArrow =
     document.getElementById("recentArrow");
 
-
-// =========================
-// DARK MODE
-// =========================
-
+// Dark mode button
 const darkModeBtn =
     document.getElementById("darkModeBtn");
+
+
+// ==================================================
+// DARK MODE
+// ==================================================
 
 // Dark mode ON by default
 document.body.classList.add("dark-mode");
@@ -60,7 +61,9 @@ darkModeBtn.addEventListener("click", () => {
 
     document.body.classList.toggle("dark-mode");
 
-    if (document.body.classList.contains("dark-mode")) {
+    if (
+        document.body.classList.contains("dark-mode")
+    ) {
 
         darkModeBtn.textContent =
             "☀️ Light Mode";
@@ -74,26 +77,31 @@ darkModeBtn.addEventListener("click", () => {
 });
 
 
-// =========================
+// ==================================================
 // LOAD RECENT SEARCHES
-// =========================
+// ==================================================
 
 let recentCities =
-    JSON.parse(localStorage.getItem("recentCities")) || [];
+    JSON.parse(
+        localStorage.getItem("recentCities")
+    ) || [];
 
 displayRecentSearches();
 
 
-// =========================
+// ==================================================
 // RECENT SEARCH TOGGLE
-// =========================
+// ==================================================
 
 recentHeader.addEventListener("click", () => {
 
-    recentSearches.classList.toggle("recent-hidden");
+    recentSearches.classList.toggle(
+        "recent-hidden"
+    );
 
-    recentSearches.classList.toggle("recent-visible");
-
+    recentSearches.classList.toggle(
+        "recent-visible"
+    );
 
     if (
         recentSearches.classList.contains(
@@ -111,9 +119,9 @@ recentHeader.addEventListener("click", () => {
 });
 
 
-// =========================
+// ==================================================
 // SEARCH BUTTON
-// =========================
+// ==================================================
 
 searchBtn.addEventListener("click", () => {
 
@@ -131,7 +139,6 @@ searchBtn.addEventListener("click", () => {
         return;
     }
 
-
     // Prevent comma
     if (city.includes(",")) {
 
@@ -144,152 +151,219 @@ searchBtn.addEventListener("click", () => {
         return;
     }
 
-
     getWeather(city);
+
 });
 
 
-// =========================
+// ==================================================
 // PRESS ENTER TO SEARCH
-// =========================
+// ==================================================
 
-cityInput.addEventListener("keypress", (event) => {
+cityInput.addEventListener(
+    "keypress",
+    (event) => {
 
-    if (event.key === "Enter") {
+        if (event.key === "Enter") {
 
-        searchBtn.click();
-    }
+            searchBtn.click();
 
-});
-
-
-// =========================
-// CURRENT LOCATION BUTTON
-// =========================
-
-locationBtn.addEventListener("click", () => {
-
-    error.textContent = "";
-
-    locationStatus.textContent =
-        "📍 Getting your location...";
-
-    loading.textContent =
-        "Finding your current location...";
-
-
-    // Check browser support
-    if (!navigator.geolocation) {
-
-        locationStatus.textContent = "";
-
-        loading.textContent = "";
-
-        error.textContent =
-            "Geolocation is not supported by your browser.";
-
-        return;
-    }
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        // SUCCESS
-        async (position) => {
-
-            const lat =
-                position.coords.latitude;
-
-            const lon =
-                position.coords.longitude;
-
-
-            console.log(
-                "Latitude:",
-                lat
-            );
-
-            console.log(
-                "Longitude:",
-                lon
-            );
-
-            console.log(
-                "Accuracy:",
-                position.coords.accuracy,
-                "meters"
-            );
-
-
-            locationStatus.textContent =
-                "📍 Location found!";
-
-
-            await getWeatherByLocation(
-                lat,
-                lon
-            );
-        },
-
-
-        // ERROR
-        (err) => {
-
-            loading.textContent = "";
-
-            locationStatus.textContent = "";
-
-
-            if (err.code === 1) {
-
-                error.textContent =
-                    "Location permission was denied. Please allow location access.";
-
-            } else if (err.code === 2) {
-
-                error.textContent =
-                    "Unable to determine your location.";
-
-            } else if (err.code === 3) {
-
-                error.textContent =
-                    "Location request timed out.";
-
-            } else {
-
-                error.textContent =
-                    "Unable to get your current location.";
-            }
-
-        },
-
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
         }
 
-    );
+    }
+);
 
-});
+
+// ==================================================
+// CURRENT LOCATION BUTTON
+// ==================================================
+
+locationBtn.addEventListener(
+    "click",
+    () => {
+
+        error.textContent = "";
+
+        locationStatus.textContent =
+            "📍 Getting your location...";
+
+        loading.textContent =
+            "Finding your current location...";
 
 
-// =========================
+        // ==================================================
+        // FALLBACK LOCATION
+        // MURTAZAPUR / BEHAT / SAHARANPUR
+        // ==================================================
+
+        const fallbackLatitude = 30.1714;
+        const fallbackLongitude = 77.6200;
+
+
+        // Check browser support
+        if (!navigator.geolocation) {
+
+            console.log(
+                "Geolocation is not supported."
+            );
+
+            locationStatus.textContent =
+                "📍 Showing weather near Behat";
+
+            getWeatherByLocation(
+                fallbackLatitude,
+                fallbackLongitude
+            );
+
+            return;
+        }
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            // ==============================================
+            // SUCCESS
+            // ==============================================
+
+            async (position) => {
+
+                const lat =
+                    position.coords.latitude;
+
+                const lon =
+                    position.coords.longitude;
+
+                const accuracy =
+                    position.coords.accuracy;
+
+
+                console.log(
+                    "Latitude:",
+                    lat
+                );
+
+                console.log(
+                    "Longitude:",
+                    lon
+                );
+
+                console.log(
+                    "Accuracy:",
+                    accuracy,
+                    "meters"
+                );
+
+
+                // ==========================================
+                // GOOD LOCATION ACCURACY
+                // ==========================================
+
+                if (accuracy <= 10000) {
+
+                    console.log(
+                        "Good location accuracy."
+                    );
+
+                    locationStatus.textContent =
+                        "📍 Location found!";
+
+                    await getWeatherByLocation(
+                        lat,
+                        lon
+                    );
+
+                    return;
+                }
+
+
+                // ==========================================
+                // POOR LOCATION ACCURACY
+                // ==========================================
+
+                console.log(
+                    "Location accuracy is too poor."
+                );
+
+                console.log(
+                    "Using Murtazapur / Behat coordinates."
+                );
+
+
+                locationStatus.textContent =
+                    "📍 Showing weather near Behat";
+
+
+                await getWeatherByLocation(
+                    fallbackLatitude,
+                    fallbackLongitude
+                );
+
+            },
+
+
+            // ==============================================
+            // LOCATION ERROR
+            // ==============================================
+
+            async (err) => {
+
+                console.log(
+                    "Location error:",
+                    err
+                );
+
+
+                // Instead of showing an error,
+                // use the known Behat coordinates.
+
+                locationStatus.textContent =
+                    "📍 Showing weather near Behat";
+
+
+                await getWeatherByLocation(
+                    fallbackLatitude,
+                    fallbackLongitude
+                );
+
+            },
+
+
+            // ==============================================
+            // LOCATION OPTIONS
+            // ==============================================
+
+            {
+                enableHighAccuracy: true,
+                timeout: 20000,
+                maximumAge: 0
+            }
+
+        );
+
+    }
+);
+
+
+// ==================================================
 // GET WEATHER BY LOCATION
-// =========================
+// ==================================================
 
-async function getWeatherByLocation(lat, lon) {
+async function getWeatherByLocation(
+    lat,
+    lon
+) {
 
     loading.textContent =
         "Fetching weather information......";
 
     error.textContent = "";
 
+
     try {
 
-        // =================================
-        // 1. GET WEATHER USING GPS
-        // =================================
+        // ==========================================
+        // WEATHER USING LATITUDE + LONGITUDE
+        // ==========================================
 
         const weatherUrl =
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
@@ -311,13 +385,17 @@ async function getWeatherByLocation(lat, lon) {
             await weatherResponse.json();
 
 
-        // =================================
-        // 2. GET LOCALITY / VILLAGE NAME
-        // =================================
+        // ==========================================
+        // LOCATION NAME
+        // ==========================================
 
         let locationName =
             data.name;
 
+
+        // ==========================================
+        // REVERSE GEOCODING
+        // ==========================================
 
         try {
 
@@ -346,23 +424,7 @@ async function getWeatherByLocation(lat, lon) {
                     );
 
 
-                    // Look for the most local name
-                    const localLocation =
-                        locationData.find(
-                            (place) =>
-                                place.local_names
-                        );
-
-
                     if (
-                        localLocation &&
-                        localLocation.name
-                    ) {
-
-                        locationName =
-                            localLocation.name;
-
-                    } else if (
                         locationData[0].name
                     ) {
 
@@ -381,22 +443,23 @@ async function getWeatherByLocation(lat, lon) {
                 locationError
             );
 
-            // Keep OpenWeather weather location
             locationName =
                 data.name;
         }
 
 
-        // =================================
+        // ==========================================
         // REMOVE INITIAL CENTERED MODE
-        // =================================
+        // ==========================================
 
-        document.body.classList.add("searched");
+        document.body.classList.add(
+            "searched"
+        );
 
 
-        // =================================
-        // LOCATION / VILLAGE NAME
-        // =================================
+        // ==========================================
+        // LOCATION NAME
+        // ==========================================
 
         cityName.textContent =
             locationName;
@@ -405,98 +468,70 @@ async function getWeatherByLocation(lat, lon) {
             locationName;
 
 
-        // =================================
+        // ==========================================
         // TEMPERATURE
-        // =================================
+        // ==========================================
 
         temperature.textContent =
             `${Math.round(data.main.temp)}°C`;
 
 
-        // =================================
+        // ==========================================
         // CONDITION
-        // =================================
+        // ==========================================
 
         condition.textContent =
             data.weather[0].description;
 
 
-        // =================================
+        // ==========================================
         // HUMIDITY
-        // =================================
+        // ==========================================
 
         humidity.textContent =
             data.main.humidity;
 
 
-        // =================================
+        // ==========================================
         // WIND SPEED
-        // =================================
+        // ==========================================
 
         windSpeed.textContent =
-            (data.wind.speed * 3.6).toFixed(1);
+            (
+                data.wind.speed * 3.6
+            ).toFixed(1);
 
 
-        // =================================
+        // ==========================================
         // WEATHER ICON
-        // =================================
+        // ==========================================
 
-        const weather =
-            data.weather[0].main.toLowerCase();
-
-
-        if (weather.includes("clear")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/869/869869.png";
-
-        } else if (weather.includes("cloud")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
-
-        } else if (weather.includes("rain")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163657.png";
-
-        } else if (weather.includes("thunder")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
-
-        } else {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163661.png";
-        }
+        setWeatherIcon(
+            data.weather[0].main,
+            data.weather[0].description
+        );
 
 
-        weatherIcon.alt =
-            data.weather[0].description;
-
-
-        // =================================
+        // ==========================================
         // SHOW WEATHER CARD
-        // =================================
+        // ==========================================
 
         weatherCard.style.display =
             "block";
 
 
-        // =================================
+        // ==========================================
         // ADD TO RECENT SEARCHES
-        // =================================
+        // ==========================================
 
         addRecentSearch(
             locationName
         );
 
 
-        // =================================
-        // GET 5-DAY FORECAST
-        // USING GPS COORDINATES
-        // =================================
+        // ==========================================
+        // GET FORECAST
+        // ==========================================
 
         getForecast(
             lat,
@@ -504,17 +539,20 @@ async function getWeatherByLocation(lat, lon) {
         );
 
 
-        // =================================
+        // ==========================================
         // LOCATION STATUS
-        // =================================
+        // ==========================================
 
         locationStatus.textContent =
             `📍 Showing weather for ${locationName}`;
 
+    }
 
-    } catch (err) {
+
+    catch (err) {
 
         console.log(err);
+
 
         weatherCard.style.display =
             "none";
@@ -522,19 +560,25 @@ async function getWeatherByLocation(lat, lon) {
         forecastContainer.style.display =
             "none";
 
+
         error.textContent =
             "Unable to get weather for your current location.";
 
-    } finally {
+    }
+
+
+    finally {
 
         loading.textContent = "";
+
     }
+
 }
 
 
-// =========================
-// GET CURRENT WEATHER
-// =========================
+// ==================================================
+// GET CURRENT WEATHER BY CITY
+// ==================================================
 
 async function getWeather(city) {
 
@@ -542,6 +586,7 @@ async function getWeather(city) {
         "Fetching weather information......";
 
     error.textContent = "";
+
 
     try {
 
@@ -568,117 +613,97 @@ async function getWeather(city) {
             await response.json();
 
 
-        // Remove initial centered mode
-        document.body.classList.add("searched");
+        // ==========================================
+        // REMOVE INITIAL CENTERED MODE
+        // ==========================================
+
+        document.body.classList.add(
+            "searched"
+        );
 
 
-        // =========================
+        // ==========================================
         // CITY NAME
-        // =========================
+        // ==========================================
 
         cityName.textContent =
             data.name;
 
 
-        // =========================
+        // ==========================================
         // TEMPERATURE
-        // =========================
+        // ==========================================
 
         temperature.textContent =
             `${Math.round(data.main.temp)}°C`;
 
 
-        // =========================
+        // ==========================================
         // CONDITION
-        // =========================
+        // ==========================================
 
         condition.textContent =
             data.weather[0].description;
 
 
-        // =========================
+        // ==========================================
         // HUMIDITY
-        // =========================
+        // ==========================================
 
         humidity.textContent =
             data.main.humidity;
 
 
-        // =========================
+        // ==========================================
         // WIND SPEED
-        // =========================
+        // ==========================================
 
         windSpeed.textContent =
-            (data.wind.speed * 3.6).toFixed(1);
+            (
+                data.wind.speed * 3.6
+            ).toFixed(1);
 
 
-        // =========================
+        // ==========================================
         // WEATHER ICON
-        // =========================
+        // ==========================================
 
-        const weather =
-            data.weather[0].main.toLowerCase();
-
-
-        if (weather.includes("clear")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/869/869869.png";
-
-        } else if (weather.includes("cloud")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
-
-        } else if (weather.includes("rain")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163657.png";
-
-        } else if (weather.includes("thunder")) {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
-
-        } else {
-
-            weatherIcon.src =
-                "https://cdn-icons-png.flaticon.com/512/1163/1163661.png";
-        }
+        setWeatherIcon(
+            data.weather[0].main,
+            data.weather[0].description
+        );
 
 
-        weatherIcon.alt =
-            data.weather[0].description;
-
-
-        // =========================
+        // ==========================================
         // SHOW WEATHER CARD
-        // =========================
+        // ==========================================
 
         weatherCard.style.display =
             "block";
 
 
-        // =========================
+        // ==========================================
         // ADD TO RECENT SEARCHES
-        // =========================
+        // ==========================================
 
         addRecentSearch(
             data.name
         );
 
 
-        // =========================
-        // GET 5-DAY FORECAST
-        // =========================
+        // ==========================================
+        // GET FORECAST
+        // ==========================================
 
         getForecast(
             data.coord.lat,
             data.coord.lon
         );
 
+    }
 
-    } catch (err) {
+
+    catch (err) {
 
         weatherCard.style.display =
             "none";
@@ -704,21 +729,81 @@ async function getWeather(city) {
 
         console.log(err);
 
-    } finally {
+    }
+
+
+    finally {
 
         loading.textContent = "";
+
     }
+
 }
 
 
 // ==================================================
-// RECENT SEARCHES
+// WEATHER ICON
 // ==================================================
 
+function setWeatherIcon(
+    weatherType,
+    description
+) {
 
-// =========================
+    const weather =
+        weatherType.toLowerCase();
+
+
+    if (weather.includes("clear")) {
+
+        weatherIcon.src =
+            "https://cdn-icons-png.flaticon.com/512/869/869869.png";
+
+    }
+
+    else if (
+        weather.includes("cloud")
+    ) {
+
+        weatherIcon.src =
+            "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
+
+    }
+
+    else if (
+        weather.includes("rain")
+    ) {
+
+        weatherIcon.src =
+            "https://cdn-icons-png.flaticon.com/512/1163/1163657.png";
+
+    }
+
+    else if (
+        weather.includes("thunder")
+    ) {
+
+        weatherIcon.src =
+            "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
+
+    }
+
+    else {
+
+        weatherIcon.src =
+            "https://cdn-icons-png.flaticon.com/512/1163/1163661.png";
+    }
+
+
+    weatherIcon.alt =
+        description;
+
+}
+
+
+// ==================================================
 // ADD RECENT SEARCH
-// =========================
+// ==================================================
 
 function addRecentSearch(city) {
 
@@ -748,12 +833,13 @@ function addRecentSearch(city) {
 
 
     displayRecentSearches();
+
 }
 
 
-// =========================
+// ==================================================
 // DISPLAY RECENT SEARCHES
-// =========================
+// ==================================================
 
 function displayRecentSearches() {
 
@@ -761,7 +847,9 @@ function displayRecentSearches() {
 
 
     // No searches
-    if (recentCities.length === 0) {
+    if (
+        recentCities.length === 0
+    ) {
 
         recentSearches.innerHTML =
             `
@@ -778,7 +866,9 @@ function displayRecentSearches() {
         (city, index) => {
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             item.classList.add(
@@ -801,7 +891,10 @@ function displayRecentSearches() {
             `;
 
 
-            // Click city
+            // ======================================
+            // CLICK CITY
+            // ======================================
+
             item
                 .querySelector(
                     ".recent-city"
@@ -814,11 +907,15 @@ function displayRecentSearches() {
                             city;
 
                         getWeather(city);
+
                     }
                 );
 
 
-            // Remove city
+            // ======================================
+            // REMOVE CITY
+            // ======================================
+
             item
                 .querySelector(
                     ".remove-recent"
@@ -832,6 +929,7 @@ function displayRecentSearches() {
                         removeRecentSearch(
                             index
                         );
+
                     }
                 );
 
@@ -846,9 +944,9 @@ function displayRecentSearches() {
 }
 
 
-// =========================
+// ==================================================
 // REMOVE ONE RECENT SEARCH
-// =========================
+// ==================================================
 
 function removeRecentSearch(index) {
 
@@ -865,12 +963,13 @@ function removeRecentSearch(index) {
 
 
     displayRecentSearches();
+
 }
 
 
-// =========================
+// ==================================================
 // CLEAR ALL RECENT SEARCHES
-// =========================
+// ==================================================
 
 clearRecentBtn.addEventListener(
     "click",
@@ -885,15 +984,19 @@ clearRecentBtn.addEventListener(
 
 
         displayRecentSearches();
+
     }
 );
 
 
-// =========================
+// ==================================================
 // GET 5-DAY FORECAST
-// =========================
+// ==================================================
 
-async function getForecast(lat, lon) {
+async function getForecast(
+    lat,
+    lon
+) {
 
     try {
 
@@ -919,19 +1022,24 @@ async function getForecast(lat, lon) {
 
         displayForecast(data);
 
-    } catch (err) {
+    }
+
+
+    catch (err) {
 
         console.log(err);
 
         forecastContainer.style.display =
             "none";
+
     }
+
 }
 
 
-// =========================
+// ==================================================
 // DISPLAY FORECAST
-// =========================
+// ==================================================
 
 function displayForecast(data) {
 
@@ -1029,4 +1137,5 @@ function displayForecast(data) {
     // Show forecast
     forecastContainer.style.display =
         "block";
+
 }
