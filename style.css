@@ -448,7 +448,7 @@ body.dark-mode #darkModeBtn:hover {
 
     body.searched {
         display: block;
-        padding: 70px 15px 30px;
+        padding: 75px 15px 30px;
     }
 
     body.searched .container {
@@ -553,12 +553,13 @@ body.dark-mode #darkModeBtn:hover {
 /* Small Mobile */
 @media (max-width: 360px) {
     body {
-        padding: 15px 10px;
+        padding: 70px 10px 15px;
     }
 
     body.searched {
-        padding: 65px 10px 25px;
+        padding: 70px 10px 25px;
     }
+
 
     h1 {
         font-size: 24px;
