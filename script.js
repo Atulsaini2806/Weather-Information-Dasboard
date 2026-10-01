@@ -40,9 +40,9 @@ const recentArrow = document.getElementById("recentArrow");
 // Dark Mode Button
 const darkModeBtn = document.getElementById("darkModeBtn");
 
-// Dark Mode
-document.body.classList.add("dark-mode");
-darkModeBtn.textContent = "☀️ Light Mode";
+// Light Mode by Default
+document.body.classList.remove("dark-mode");
+darkModeBtn.textContent = "🌙 Dark Mode";
 
 darkModeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
