@@ -443,7 +443,7 @@ body.dark-mode #darkModeBtn:hover {
         justify-content: center;
         align-items: flex-start;
         min-height: 100vh;
-        padding: 20px 15px;
+        padding: 75px 20px 15px;
     }
 
     body.searched {
