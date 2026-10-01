@@ -1,5 +1,6 @@
 const API_KEY = "4d327cc30cf9fb80e21af83b31893258";
 
+
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 
@@ -9,6 +10,7 @@ const error = document.getElementById("error");
 const weatherCard = document.getElementById("weatherCard");
 
 const cityName = document.getElementById("cityName");
+const currentDate = document.getElementById("currentDate");
 const temperature = document.getElementById("temperature");
 const condition = document.getElementById("condition");
 const humidity = document.getElementById("humidity");
@@ -242,6 +244,9 @@ async function getWeatherByLocation(lat, lon) {
         cityName.textContent = locationName;
         cityInput.value = locationName;
 
+        // Current Date
+        currentDate.textContent = formatCurrentDate(data.dt);
+
         // Temperature
         temperature.textContent =
             `${Math.round(data.main.temp)}°C`;
@@ -317,6 +322,9 @@ async function getWeather(city) {
         // City Name
         cityName.textContent = data.name;
 
+        // Current Date
+        currentDate.textContent = formatCurrentDate(data.dt);
+
         // Temperature
         temperature.textContent =
             `${Math.round(data.main.temp)}°C`;
@@ -366,6 +374,21 @@ async function getWeather(city) {
     } finally {
         loading.textContent = "";
     }
+}
+
+// Format Current Date
+function formatCurrentDate(timestamp) {
+    const date = new Date(timestamp * 1000);
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        }
+    );
 }
 
 // Weather Icon
@@ -536,6 +559,15 @@ function displayForecast(data) {
                 }
             );
 
+            // Forecast Date
+            const forecastDate = date.toLocaleDateString(
+                "en-US",
+                {
+                    day: "2-digit",
+                    month: "short"
+                }
+            );
+
             // Temperature
             const temp = Math.round(item.main.temp);
 
@@ -555,6 +587,10 @@ function displayForecast(data) {
                 <h3>
                     ${day}
                 </h3>
+
+                <p class="forecast-date">
+                    ${forecastDate}
+                </p>
 
                 <img
                     src="https://openweathermap.org/img/wn/${icon}@2x.png"
