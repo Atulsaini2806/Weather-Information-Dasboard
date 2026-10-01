@@ -13,6 +13,8 @@ The dashboard displays real-time weather information such as temperature, weathe
 "Weather Information Dashboard" (screenshot.png)
 ![image alt](https://github.com/Atulsaini2806/Weather-Information-Dasboard/blob/cfba5c828ed6bf6056c003c429088dd9ba76fd72/Screenshot_01.jpeg)
 
+![image alt](https://github.com/Atulsaini2806/Weather-Information-Dasboard/blob/573461b2200b6ffc146bbad1ceabfbd5da9541d4/Screenshot_02.jpeg)
+
 «Add a screenshot of your Weather Information Dashboard to the repository and name it "screenshot.png".»
 
 ✨ Features:-
