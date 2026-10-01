@@ -441,7 +441,7 @@ body.dark-mode #darkModeBtn:hover {
     body {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         min-height: 100vh;
         padding: 20px 15px;
     }
