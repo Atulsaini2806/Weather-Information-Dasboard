@@ -1,4 +1,4 @@
-🌦️ Weather Information Dashboard
+# 🌦️ Weather Information Dashboard
 
 A responsive and user-friendly Weather Information Dashboard built using HTML, CSS, and JavaScript. The application allows users to search for a city and view its current weather information using the OpenWeatherMap API.
 
@@ -100,7 +100,7 @@ The API request includes the following parameters:
 Example Request:-
 https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=YOUR_API_KEY&units=metric
 
-🧠 Key Concepts Implemented:-
+🧠 Key Concepts Implemented
 
 This project helped me practice and understand several important JavaScript concepts:
 
