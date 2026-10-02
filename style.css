@@ -412,7 +412,8 @@ body.dark-mode #darkModeBtn:hover {
 /* Tablet */
 @media (max-width: 900px) {
     body {
-        padding: 30px;
+        padding: 100px 30px 30px;
+        align-items: flex-start;
     }
 
     body.searched {
